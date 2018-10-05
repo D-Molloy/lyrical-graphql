@@ -5,7 +5,15 @@ import { Router, Route, hashHistory, IndexRoute } from "react-router";
 import ApolloClient from "apollo-client";
 import { ApolloProvider } from "react-apollo";
 // passing in an empty config object because apollo is friendly out of the box..makes assumptions of where you're making requests e.g. "/graphql"
-const client = new ApolloClient({});
+// dataIdFromObject -  o === object.  this config takes every piece of data we take from the backend and runs it through this function
+//  the result of the function is used to identify the data in the apollo store
+//  apollo doesn't want to automatically assume that every piece of data has an id (maybe you didn't add it)
+//  ** this means we have to ask for an ID to be returned for every query we make
+//  this helps ensure that when queries are run the appropriate elements are rerendered
+//  using this cached data reduces the # of request to the backend (no need to refetch data after a mutation/query)
+const client = new ApolloClient({
+  dataIdFromObject: o => o.id
+});
 
 import "./style/style.css";
 

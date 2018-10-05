@@ -20,6 +20,7 @@ class LyricCreate extends Component {
       })
       .then(() => this.setState({ content: "" }));
   }
+
   render() {
     return (
       <form onSubmit={this.onSubmit.bind(this)}>
@@ -38,6 +39,7 @@ const mutation = gql`
     addLyricToSong(content: $content, songId: $songId) {
       id
       lyrics {
+        id
         content
       }
     }
